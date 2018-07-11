@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export DISPLAY=:0.0
+while true; do
+  mplayer -idle -slave -input file='/mplayer.control'
+done

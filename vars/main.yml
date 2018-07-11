@@ -1,0 +1,39 @@
+---
+install_packages:
+  - 'mplayer'
+install_files:
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/init.d/mplayer"
+    dest:               '/etc/init.d/mplayer'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/bin/mplayerd"
+    dest:               '/usr/local/bin/mplayerd'
+commands:
+  - command:            mkfifo '/mplayer.control'
+    user:               'root'
+    chdir:              '/'
+    creates:            '/mplayer.control'
+adjust_files:
+  - owner:              'www-data'
+    group:              'display'
+    mode:               '0664'
+    path:               '/mplayer.control'
+initialize_files:
+  - owner:              'display'
+    group:              'display'
+    mode:               '0644'
+    dest:               '/var/log/mplayerd.log'
+  - owner:              'display'
+    group:              'display'
+    mode:               '0644'
+    dest:               '/var/log/mplayerd.ret'
+enable_services:
+  - 'mplayer'
+start_services:
+  - 'mplayer'
+restart_services:
+  - 'mplayer'

@@ -1,0 +1,104 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          mplayer
+# Required-Start:
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start mplayerd at boot time
+# Description:       Enable mplayer provided by mplayerd.
+### END INIT INFO
+
+
+action="${1}"
+user=display
+pid_file=/var/run/mplayerd.pid
+
+function start {
+  echo -n "Starting..."
+  # If PID file exists
+  if test -e $pid_file; then
+    pid=$(< $pid_file)
+    # If PID is running
+    if ps -p $pid >/dev/null 2>&1; then
+      echo "Error:  mplayerd already started with pid:  ${pid}"
+      return 1
+    fi
+    echo "Error:  ${pid_file} exists, but PID ${pid} is not running."
+    return 1
+  fi
+
+  su -c mplayerd $user > /var/log/mplayerd.log 2>&1 &
+  echo $! > $pid_file
+  disown
+  echo "OK"
+  return 0
+}
+
+
+function stop {
+  echo -n "Stopping..."
+  # If PID file exists
+  if test -e $pid_file; then
+    pid=$(< $pid_file)
+    # If PID is running
+    if ps -p $pid >/dev/null 2>&1; then
+      # If PID is killed
+      if kill $pid; then
+        rm $pid_file
+        echo "OK"
+        return 0
+      fi
+      echo "Error:  Failed to kill pid:  ${pid}"
+      return 1
+    fi
+    echo "Error:  $pid_file exists, but PID ${pid} is not running."
+    return 1
+  fi
+
+  echo "Warning:  mplayerd does not appear to be started."
+  return 0
+}
+
+
+function status {
+  echo -en "Status:  "
+  if test -e $pid_file; then
+    pid=$(< $pid_file)
+    if ps -p $pid >/dev/null 2>&1; then
+      echo -e "started with pid:  ${pid}"
+      return 0
+    fi
+    echo -e "${pid_file} exists, but PID ${pid} is not running."
+    return 2
+  fi
+
+  echo -e "stopped"
+  return 1
+}
+
+
+case "${action}" in
+  'start')
+    start
+    exit $?
+    ;;
+  'stop')
+    stop
+    exit $?
+    ;;
+  'restart')
+    stop && sleep 1 && start
+    exit $?
+    ;;
+  'status')
+    status
+    exit $?
+    ;;
+  *)
+    echo -e "Usage:\n  ${0} {start|stop|status}"
+    exit 1;
+    ;;
+esac
+
