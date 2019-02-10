@@ -17,11 +17,6 @@ commands:
     user:               'root'
     chdir:              '/'
     creates:            '/mplayer.control'
-adjust_files:
-  - owner:              'www-data'
-    group:              'display'
-    mode:               '0664'
-    path:               '/mplayer.control'
 initialize_files:
   - owner:              'display'
     group:              'display'
@@ -31,6 +26,18 @@ initialize_files:
     group:              'display'
     mode:               '0644'
     dest:               '/var/log/mplayerd.ret'
+adjust_files:
+  - owner:              'www-data'
+    group:              'display'
+    mode:               '0664'
+    path:               '/mplayer.control'
+lines_in_files:
+  - line:               'cache=10000000 # in kBytes (10gB)'
+    dest:               '/home/display/.mplayer/config'
+    regexp:             '^cache='
+  - line:               'cache-min=1'
+    dest:               '/home/display/.mplayer/config'
+    regexp:             '^cache-min='
 enable_services:
   - 'mplayer'
 start_services:

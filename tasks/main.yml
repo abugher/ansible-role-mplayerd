@@ -4,7 +4,9 @@
 - include:                      '../tasks/initialize_files.yml'
 - include:                      '../tasks/commands.yml'
 - include:                      '../tasks/adjust_files.yml'
+- include:                      '../tasks/lines_in_files.yml'
 - include:                      '../tasks/enable_services.yml'
 - include:                      '../tasks/start_services.yml'
 - include:                      '../tasks/restart_services.yml'
   when:                         install_files_result.changed
+                                or lines_in_files_result.changed
