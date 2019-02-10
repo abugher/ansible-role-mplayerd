@@ -35,7 +35,7 @@ lines_in_files:
   - line:               'cache=10000000 # in kBytes (10gB)'
     dest:               '/home/display/.mplayer/config'
     regexp:             '^cache='
-  - line:               'cache-min=1'
+  - line:               'cache-min=0'
     dest:               '/home/display/.mplayer/config'
     regexp:             '^cache-min='
 enable_services:
