@@ -1,6 +1,6 @@
 ---
 install_packages:
-  - 'mplayer'
+  - 'mpv'
 install_files:
   - owner:              'root'
     group:              'root'

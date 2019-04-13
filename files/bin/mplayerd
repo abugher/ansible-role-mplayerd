@@ -2,5 +2,5 @@
 
 export DISPLAY=:0.0
 while true; do
-  mplayer -idle -slave -input file='/mplayer.control'
+  mpv --idle=yes --input-file='/mplayer.control'
 done
