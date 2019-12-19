@@ -17,15 +17,17 @@ commands:
     user:               'root'
     chdir:              '/'
     creates:            '/mplayer.control'
-initialize_files:
+create_files:
   - owner:              'display'
     group:              'display'
     mode:               '0644'
-    dest:               '/var/log/mplayerd.log'
+    state:              'touch'
+    path:               '/var/log/mplayerd.log'
   - owner:              'display'
     group:              'display'
     mode:               '0644'
-    dest:               '/var/log/mplayerd.ret'
+    state:              'touch'
+    path:               '/var/log/mplayerd.ret'
 adjust_files:
   - owner:              'www-data'
     group:              'display'

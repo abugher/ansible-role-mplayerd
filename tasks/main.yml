@@ -1,7 +1,7 @@
 ---
 - include:                      '../tasks/install_packages.yml'
 - include:                      '../tasks/install_files.yml'
-- include:                      '../tasks/initialize_files.yml'
+- include:                      '../tasks/create_files.yml'
 - include:                      '../tasks/commands.yml'
 - include:                      '../tasks/adjust_files.yml'
 - include:                      '../tasks/lines_in_files.yml'
