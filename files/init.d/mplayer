@@ -17,16 +17,22 @@ pid_file=/var/run/mplayerd.pid
 
 function start {
   echo -n "Starting..."
-  # If PID file exists
+  # If PID file exists:
   if test -e $pid_file; then
     pid=$(< $pid_file)
-    # If PID is running
+    # If PID is running:
     if ps -p $pid >/dev/null 2>&1; then
-      echo "Error:  mplayerd already started with pid:  ${pid}"
+      echo "Warning:  mplayerd already started with PID:  ${pid}"
+      return 0
+    fi
+    # If PID is not running:
+    if rm $pid_file; then
+      echo "Warning:  mplayerd not running, but PID file is present with PID:  ${pid}"
+    else
+      echo "Error:  Could not remove stale PID file:  ${pid_file}"
       return 1
     fi
-    echo "Error:  ${pid_file} exists, but PID ${pid} is not running."
-    return 1
+    echo "Warning:  ${pid_file} existed (removed), but PID ${pid} is not running."
   fi
 
   su -c mplayerd $user > /var/log/mplayerd.log 2>&1 &
@@ -50,11 +56,12 @@ function stop {
         echo "OK"
         return 0
       fi
-      echo "Error:  Failed to kill pid:  ${pid}"
+      echo "Error:  Failed to kill PID:  ${pid}"
       return 1
     fi
-    echo "Error:  $pid_file exists, but PID ${pid} is not running."
-    return 1
+    echo "Warning:  $pid_file exists, but PID ${pid} is not running."
+    ls -ld $pid_file
+    return 0
   fi
 
   echo "Warning:  mplayerd does not appear to be started."
