@@ -35,7 +35,7 @@ function start {
     echo "Warning:  ${pid_file} existed (removed), but PID ${pid} is not running."
   fi
 
-  su -c mplayerd $user > /var/log/mplayerd.log 2>&1 &
+  su -c /usr/local/bin/mplayerd $user > /var/log/mplayerd.log 2>&1 &
   echo $! > $pid_file
   disown
   echo "OK"
