@@ -33,6 +33,11 @@ create_files:
     mode:               '0644'
     state:              'touch'
     path:               '/var/log/mplayerd.ret'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    state:              'directory'
+    path:               '/etc/mplayer'
 adjust_files:
   - owner:              'www-data'
     group:              'display'
