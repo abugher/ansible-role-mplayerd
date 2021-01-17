@@ -1,6 +1,4 @@
 ---
 dependencies:
-  - role:       'no_systemd'
-    when:       skipdeps is not defined
   - role:       'display'
     when:       skipdeps is not defined
