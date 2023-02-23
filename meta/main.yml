@@ -1,4 +1,0 @@
----
-dependencies:
-  - role:       'display'
-    when:       skipdeps is not defined
