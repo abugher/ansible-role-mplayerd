@@ -3,27 +3,6 @@ dependencies:
   - 'display'
 install_packages:
   - 'mpv'
-install_files:
-  - owner:              'root'
-    group:              'root'
-    mode:               '0755'
-    src:                "{{ role_path }}/files/init.d/mplayer"
-    dest:               '/etc/init.d/mplayer'
-  - owner:              'root'
-    group:              'root'
-    mode:               '0755'
-    src:                "{{ role_path }}/files/bin/mplayerd"
-    dest:               '/usr/local/bin/mplayerd'
-  - owner:              'root'
-    group:              'root'
-    mode:               '0644'
-    src:                "{{ role_path }}/files/conf/mplayer.conf"
-    dest:               '/etc/mplayer/mplayer.conf'
-commands:
-  - command:            mkfifo '/mplayer.control'
-    user:               'root'
-    chdir:              '/'
-    creates:            '/mplayer.control'
 create_files:
   - owner:              'display'
     group:              'display'
@@ -39,11 +18,37 @@ create_files:
     group:              'root'
     mode:               '0755'
     state:              'directory'
-    path:               '/etc/mplayer'
+    path:               '/etc/mpv/scripts'
+install_files:
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/init.d/mplayer"
+    dest:               '/etc/init.d/mplayer'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/bin/mplayerd"
+    dest:               '/usr/local/bin/mplayerd'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/conf/mpv.conf"
+    dest:               '/etc/mpv/mpv.conf'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/conf/inhibit-screensaver.lua"
+    dest:               '/etc/mpv/scripts/inhibit-screensaver.lua'
+commands:
+  - command:            mkfifo '/mplayer.control'
+    user:               'root'
+    chdir:              '/'
+    creates:            '/mplayer.control'
 adjust_files:
   - owner:              'www-data'
     group:              'display'
-    mode:               '0664'
+    mode:               '0640'
     path:               '/mplayer.control'
 enable_services:
   - 'mplayer'

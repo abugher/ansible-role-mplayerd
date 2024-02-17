@@ -1,8 +1,8 @@
 ---
-- include:              '../tasks/dependencies.yml'
+- include:                      '../tasks/dependencies.yml'
 - include:                      '../tasks/install_packages.yml'
-- include:                      '../tasks/install_files.yml'
 - include:                      '../tasks/create_files.yml'
+- include:                      '../tasks/install_files.yml'
 - include:                      '../tasks/commands.yml'
 - include:                      '../tasks/adjust_files.yml'
 - include:                      '../tasks/enable_services.yml'
