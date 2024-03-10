@@ -1,6 +1,4 @@
 ---
-dependencies:
-  - 'display'
 install_packages:
   - 'mpv'
 create_files:
