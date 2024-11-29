@@ -1,5 +1,7 @@
 ---
-fruit_release:                  'bookworm'
+gather_subset_of_facts:
+  - 'distribution'
+  - 'distribution_release'
 create_files:
   - owner:                      'display'
     group:                      'display'
@@ -51,7 +53,7 @@ template_files:
 shell_commands:
   - command:                    mkfifo '/mplayer.control'
     creates:                    '/mplayer.control'
-install_packages_from_release:  "{{ fruit_release }}"
+install_packages_from_release:  "{{ ansible_facts['distribution_release'] }}"
 install_packages:
   - 'mpv'
 adjust_files:

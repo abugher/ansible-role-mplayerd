@@ -1,4 +1,4 @@
 # https://mpv.io/installation/
 # https://fruit.je/apt
 
-deb http://apt.fruit.je/debian {{ fruit_release }} mpv
+deb http://apt.fruit.je/{{ ansible_facts['distribution']|lower }} {{ ansible_facts['distribution_release'] }} mpv
