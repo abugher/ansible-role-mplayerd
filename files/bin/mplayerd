@@ -1,12 +1,15 @@
 #!/bin/bash
 
+retry_interval=1
+
 export DISPLAY=:0.0
 while true; do
   echo "Starting mpv."
-  mpv --idle=yes --input-ipc-client=fd://3 3< <(tail -F '/mplayer.control') &
+  tail -F '/mplayer.control' | mpv --idle=yes --input-ipc-client=fd://0 &
   mpv_pid="${!}"
   trap "kill '${mpv_pid}'; exit" TERM
   wait "${mpv_pid}"
   ret="${?}"
   echo "mpv returned:  ${ret}"
+  sleep "${retry_interval}"
 done
