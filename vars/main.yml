@@ -53,7 +53,8 @@ template_files:
 shell_commands:
   - command:                    mkfifo '/mplayer.control'
     creates:                    '/mplayer.control'
-install_packages_from_release:  "{{ ansible_facts['distribution_release'] }}"
+#install_packages_from_release:  "{{ ansible_facts['distribution_release'] }}"
+install_packages_from_release:  'bookworm'
 install_packages:
   - 'mpv'
 adjust_files:
