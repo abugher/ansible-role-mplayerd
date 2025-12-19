@@ -1,7 +1,4 @@
 ---
-gather_subset_of_facts:
-  - 'distribution'
-  - 'distribution_release'
 create_files:
   - owner:                      'display'
     group:                      'display'
@@ -39,22 +36,9 @@ install_files:
     mode:                       '0644'
     src:                        'files/conf/inhibit-screensaver.lua'
     dest:                       '/etc/mpv/scripts/inhibit-screensaver.lua'
-  - owner:                      'root'
-    group:                      'root'
-    mode:                       '0644'
-    src:                        'files/conf/fruit.gpg'
-    dest:                       '/etc/apt/trusted.gpg.d/fruit.gpg'
-template_files:
-  - owner:                      'root'
-    group:                      'root'
-    mode:                       '0644'
-    src:                        'templates/fruit.list.j2'
-    dest:                       '/etc/apt/sources.list.d/fruit.list'
 shell_commands:
   - command:                    mkfifo '/mplayer.control'
     creates:                    '/mplayer.control'
-#install_packages_from_release:  "{{ ansible_facts['distribution_release'] }}"
-install_packages_from_release:  'bookworm'
 install_packages:
   - 'mpv'
 adjust_files:
